@@ -1,9 +1,9 @@
 library("dplyr", lib.loc="/Library/Frameworks/R.framework/Versions/3.5/Resources/library")
-setwd("~/Desktop/VIDALAKIS/CSV_FILES/p212_results")
+setwd("~/Desktop/Imenc001/Trinity.Fasta_files/BLAST_FILES/Trinity_3291_15")
 #lab.data <- read.csv("Data1.csv") 
 
-#lab.data <- read.csv("Sample sheet T. Dang.csv") 
-lab.data <- read.csv("p212_CSVCONVERT.csv") 
+#lab.data <- read.csv("Sample sheet.csv")
+lab.data <- read.csv("90_Trinity_3291_15.csv") 
 names(lab.data) 
 simplifyTable <- select(lab.data, Query.ID, evalue, bitscore) 
 
@@ -93,43 +93,49 @@ for( i in 1:y) {
   }
   
   if((!IdenticalValueFound) & (i == 1)){
-    new_lab.data <- data.frame("Query.ID" = lab.data$Query.ID[i], 
-                               "Subject.ID" = lab.data$Subject.ID[i], 
-                               "Subject.IDs" = lab.data$Subject.IDs[i], 
-                               "Subject.Title" = lab.data$Subject.Title[i], 
-                               "percent.identity" = lab.data$percent.identity[i], 
-                               "Identical" = lab.data$Identical[i], 
-                               "Alignment.Length" = lab.data$Alignment.Length[i], 
-                               "Mismatches" = lab.data$Mismatches[i], 
-                               "query.start" = lab.data$query.start[i], 
-                               "query.end" = lab.data$query.end[i], 
-                               "subject.start" = lab.data$subject.start[i], 
-                               "subject.end" = lab.data$subject.end[i],
-                               "evalue" = lab.data$evalue[i], 
-                               "bitscore" = lab.data$bitscore[i])
+    
+    new_lab.data <- rbind(new_lab.data, data.frame(lab.data[i, ]))
+    # Code simplified, bottom no longer needed
+    #new_lab.data <- data.frame("Query.ID" = lab.data$Query.ID[i], 
+    #                     "Subject.ID" = lab.data$Subject.ID[i], 
+    #                    "Subject.IDs" = lab.data$Subject.IDs[i], 
+    #                  "Subject.Title" = lab.data$Subject.Title[i], 
+    #                 "percent.identity" = lab.data$percent.identity[i], 
+    #               "Identical" = lab.data$Identical[i], 
+    #             "Alignment.Length" = lab.data$Alignment.Length[i], 
+    #            "Mismatches" = lab.data$Mismatches[i], 
+    #           "query.start" = lab.data$query.start[i], 
+    #          "query.end" = lab.data$query.end[i], 
+    #         "subject.start" = lab.data$subject.start[i], 
+    #        "subject.end" = lab.data$subject.end[i],
+    #       "evalue" = lab.data$evalue[i], 
+    #      "bitscore" = lab.data$bitscore[i])
   }
   
   else if(!IdenticalValueFound){
-    new_lab.data <- rbind(new_lab.data, data.frame("Query.ID" = lab.data$Query.ID[i], 
-                                                   "Subject.ID" = lab.data$Subject.ID[i], 
-                                                   "Subject.IDs" = lab.data$Subject.IDs[i], 
-                                                   "Subject.Title" = lab.data$Subject.Title[i], 
-                                                   "percent.identity" = lab.data$percent.identity[i], 
-                                                   "Identical" = lab.data$Identical[i], 
-                                                   "Alignment.Length" = lab.data$Alignment.Length[i], 
-                                                   "Mismatches" = lab.data$Mismatches[i], 
-                                                   "query.start" = lab.data$query.start[i], 
-                                                   "query.end" = lab.data$query.end[i], 
-                                                   "subject.start" = lab.data$subject.start[i], 
-                                                   "subject.end" = lab.data$subject.end[i],
-                                                   "evalue" = lab.data$evalue[i], 
-                                                   "bitscore" = lab.data$bitscore[i]))
+    new_lab.data <- rbind(new_lab.data, data.frame(lab.data[i, ]))
+    # Code simplified, bottom no longer needed
+    #new_lab.data <- data.frame("Query.ID" = lab.data$Query.ID[i], 
+    #                     "Subject.ID" = lab.data$Subject.ID[i], 
+    #                    "Subject.IDs" = lab.data$Subject.IDs[i], 
+    #                  "Subject.Title" = lab.data$Subject.Title[i], 
+    #                 "percent.identity" = lab.data$percent.identity[i], 
+    #               "Identical" = lab.data$Identical[i], 
+    #             "Alignment.Length" = lab.data$Alignment.Length[i], 
+    #            "Mismatches" = lab.data$Mismatches[i], 
+    #           "query.start" = lab.data$query.start[i], 
+    #          "query.end" = lab.data$query.end[i], 
+    #         "subject.start" = lab.data$subject.start[i], 
+    #        "subject.end" = lab.data$subject.end[i],
+    #       "evalue" = lab.data$evalue[i], 
+    #      "bitscore" = lab.data$bitscore[i])
+    
   }
   
 }
 
 unique(lab.data$Query.ID)
 simplifyTable2 <- select(new_lab.data, Query.ID, evalue, bitscore) 
-write.csv(simplifyTable2, file = "UPDATED_SIMPLIFIED_p212.csv")
-write.csv(new_lab.data, file = "UPDATED_p212.csv")
+write.csv(simplifyTable2, file = "UNIQUE_SIMPLIFIED_90_Trinity_3291_15.csv")
+write.csv(new_lab.data, file = "UNIQUE_90_Trinity_3291_15.csv")
 
